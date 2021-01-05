@@ -1,0 +1,67 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-4 form-body" id="payment-lookup">
+      <p class='form-header'>Place Amount</p>
+      <%= form_tag calculate_payment_path, method: :get, id: 'friend-lookup-form' do%>
+        <div class="form">
+          <div class="form-group col">
+            <label for="inputloan">Loan Amount</label>
+            <%= number_field_tag :loan_amount, params[:loan_amount], placeholder: 'Loan amount', min: 0, class: 'form-control', id:'inputloan' %>
+          </div>
+          <div class="form-group col">
+            <label for="input-term">Terms</label>
+            <%= number_field_tag :terms, params[:terms], placeholder: 'Terms', min: 0, class: 'form-control', id:'input-term' %>
+          </div>
+          <div class="form-group col">
+            <label for="interest-rate">Annual Interest Rate</label>
+            <%= number_field_tag :interest, params[:interest], placeholder: 'Interest Rate', min: 0, class: 'form-control', id:'interest-rate' %>
+          </div>
+          <div class="form-group col">
+            <label for="request-date">Request Date</label>
+            <%= date_field_tag(:datetime, Date.today, class: "form-control")%>
+          </div>
+          <div class="form-group col">
+            <label for="interest-only">Has Interest only Duration</label>
+            <%= select_tag "interest_only", options_for_select([ "Yes", "No" ], ["Yes", "No"]), class: "form-control" %>
+          </div>
+        </div>
+        <%= button_tag(type: :submit, class: 'btn btn-md btn-info') do%>
+          <i class="fa fa-search"></i> Submit
+        <% end %>
+      <% end %>
+    </div>
+  
+    <div class="col">
+      <% if @payments %>
+        <div class="payment-block">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Start Balance</th>
+                <th scope="col">Principal</th>
+                <th scope="col">Interest</th>
+                <th scope="col">Total pmt</th>
+                <th scope="col">End Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @payments.each do |payment| %>
+              <tr>
+                <th scope="row"><%=payment.day%></th>
+                <td><%=payment.start_balance%></td>
+                <td><%=payment.principal%></td>
+                <td><%=payment.interest%></td>
+                <td><%=payment.total_pmt%></td>
+                <td><%=payment.end_balance%></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p>Lets submit one....</p>
+      <% end %>
+    </div>
+  </div>
+</div>
