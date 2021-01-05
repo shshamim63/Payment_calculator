@@ -6,15 +6,15 @@
         <div class="form">
           <div class="form-group col">
             <label for="inputloan">Loan Amount</label>
-            <%= number_field_tag :loan_amount, params[:loan_amount], placeholder: 'Loan amount', min: 0, class: 'form-control', id:'inputloan' %>
+            <%= number_field_tag :loan_amount, params[:loan_amount], placeholder: 'Loan amount', min: 0, class: 'form-control', id:'inputloan', required: true %>
           </div>
           <div class="form-group col">
             <label for="input-term">Terms</label>
-            <%= number_field_tag :terms, params[:terms], placeholder: 'Terms', min: 0, class: 'form-control', id:'input-term' %>
+            <%= number_field_tag :terms, params[:terms], placeholder: 'Terms', min: 0, class: 'form-control', id:'input-term', required: true  %>
           </div>
           <div class="form-group col">
             <label for="interest-rate">Annual Interest Rate</label>
-            <%= number_field_tag :interest, params[:interest], placeholder: 'Interest Rate', min: 0, class: 'form-control', id:'interest-rate' %>
+            <%= number_field_tag :interest, params[:interest], placeholder: 'Interest Rate', min: 0, class: 'form-control', id:'interest-rate', required: true  %>
           </div>
           <div class="form-group col">
             <label for="request-date">Request Date</label>
