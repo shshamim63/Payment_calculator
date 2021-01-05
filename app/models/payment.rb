@@ -12,16 +12,19 @@ class Payment < ApplicationRecord
   def self.final_payment_list (amount, terms, rate, date, interest_only)
     ans = []
     start = 0
+    start_date = date
     terms_end = terms
     if interest_only == 'Yes'
       (0...3).each do |index|
         interest = self.interest_monthly(amount, rate, terms).round(2)
         payment = self.create_instance(amount, interest, interest,
-                                      0.00, date.next_month, amount)
+                                      0.00, start_date, amount)
         ans.push(payment)
         start += 1
+        start_date = start_date.next_month
       end
       terms -= 3
+
     end
     years = terms.to_f/12
     pmt = Payment.total_pmt(amount, rate, years, terms)
@@ -30,10 +33,11 @@ class Payment < ApplicationRecord
       principal = (pmt - interest).round(2)
       end_balance = (amount - principal).round(2) >= 0 ? (amount - principal).round(2) : 0
       payment = self.create_instance(amount, interest, pmt.round(2),
-                                      principal, date.next_month, end_balance)
+                                      principal, start_date.next_month, end_balance)
       
       ans.push(payment)
       amount = end_balance
+      start_date = start_date.next_month
     end
     ans
   end
