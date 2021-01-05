@@ -1,1 +1,29 @@
-hello
+<div class="container" id="payment-lookup">
+  <%= form_tag calculate_payment_path, method: :get, id: 'friend-lookup-form' do%>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputloan">Loan Amount</label>
+        <%= number_field_tag :loan_amount, params[:loan_amount], placeholder: 'Loan amount', min: 0, class: 'form-control', id:'inputloan' %>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="input-term">Terms</label>
+        <%= number_field_tag :terms, params[:terms], placeholder: 'Terms', min: 0, class: 'form-control', id:'input-term' %>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="interest-rate">Annual Interest Rate</label>
+        <%= number_field_tag :interest, params[:interest], placeholder: 'Interest Rate', min: 0, class: 'form-control', id:'interest-rate' %>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="request-date">Request Date</label>
+        <%= date_field_tag(:datetime, Date.today, class: "form-control")%>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="interest-only">Has Interest only Duration</label>
+        <%= select_tag "interest_only", options_for_select([ "Yes", "No" ], ["Yes", "No"]), class: "form-control" %>
+      </div>
+    </div>
+    <%= button_tag(type: :submit, class: 'btn btn-md btn-success') do%>
+      <i class="fa fa-search"></i> Submit
+    <% end %>
+  <% end %>
+</div>
