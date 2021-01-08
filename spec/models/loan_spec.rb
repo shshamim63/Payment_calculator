@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Loan, type: :model do
   describe "validates Loan" do
     let(:loan) { Loan.new(loan_amount: "10000", terms: 12, interest_rate: '10', 
-                interest_only: 'Yes',    day: DateTime.current.beginning_of_day) }
+                interest_only: 'Yes', day: DateTime.current.beginning_of_day) }
 
     context 'When povided all the required filed' do
       it "creats an instance without any error" do
