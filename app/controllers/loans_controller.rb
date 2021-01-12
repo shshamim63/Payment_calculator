@@ -13,7 +13,8 @@ class LoansController <  ApplicationController
 
   def show
     @loan = Loan.new
-    @payments = Payment.final_payment_list(@seted_loan.loan_amount.to_f,
+    featured_payments = FeaturedPayments.new
+    @payments = featured_payments.final_payment_list(@seted_loan.loan_amount.to_f,
                                            @seted_loan.terms.to_f,
                                            @seted_loan.interest_rate.to_f,
                                            Date.parse(@seted_loan.day.to_s).beginning_of_month,
