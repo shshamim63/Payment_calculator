@@ -1,0 +1,27 @@
+<%= form_for(loan) do |form| %>
+  <div class="form">
+    <div class="form-group col">
+      <%= form.label :loan_amount %>
+      <%= form.number_field :loan_amount, placeholder: 'Loan amount', min: 0, class: 'form-control', id:'inputloan', required: true %>
+    </div>
+    <div class="form-group col">
+      <%= form.label :terms %>
+      <%= form.number_field :terms, placeholder: 'Terms', min: 0, class: 'form-control', id:'input-term', required: true %>
+    </div>
+    <div class="form-group col">
+      <%= form.label :interest_rate %>
+      <%= form.number_field :interest_rate, placeholder: 'Interest Rate', min: 0, class: 'form-control', id:'interest-rate', required: true %>
+    </div>
+    <div class="form-group col">
+      <%= form.label :day %>
+      <%= form.date_field :day, value: Date.today, class: "form-control"%>
+    </div>
+    <div class="form-group col">
+      <%= form.label :interest_only %>
+      <%= form.select(:interest_only, ['Yes', "No"], {}, { :class => 'form-control' }) %>
+    </div>
+  </div>
+  <%= button_tag(type: :submit, class: 'btn btn-md btn-info') do%>
+    <i class="fa fa-search"></i> Submit
+  <% end %>
+<% end %>
