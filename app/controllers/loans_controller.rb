@@ -28,6 +28,6 @@ class LoansController <  ApplicationController
   end
 
   def set_loan
-    @seted_loan = Loan.find(params[:id])
+    @current_loan = Loan.find(params[:id])
   end
 end
