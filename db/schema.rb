@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_05_070507) do
+ActiveRecord::Schema.define(version: 2021_01_27_101817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2021_01_05_070507) do
     t.integer "terms"
     t.decimal "interest_rate"
     t.date "day"
-    t.string "interest_only"
+    t.boolean "interest_only"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
