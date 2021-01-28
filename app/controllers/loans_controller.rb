@@ -1,4 +1,4 @@
-class LoansController <  ApplicationController
+class LoansController < ApplicationController
   before_action :set_loan, only: [:show]
   def new
     @loan = Loan.new
@@ -15,12 +15,13 @@ class LoansController <  ApplicationController
 
   def show
     @loan = Loan.new
-    @payments = Payment.final_payment_list(@current_loan.amount,
-                                           @current_loan.terms,
-                                           @current_loan.interest_rate,
-                                           @current_loan.day,
-                                           @current_loan.interest_only
-                                          )
+    @payments = Payment.final_payment_list(
+      @current_loan.amount,
+      @current_loan.terms,
+      @current_loan.interest_rate,
+      @current_loan.day,
+      @current_loan.interest_only
+    )
   end
 
   private
