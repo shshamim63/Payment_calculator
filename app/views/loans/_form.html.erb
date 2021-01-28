@@ -1,8 +1,8 @@
 <%= form_for(loan) do |form| %>
   <div class="form">
     <div class="form-group col">
-      <%= form.label :loan_amount %>
-      <%= form.number_field :loan_amount, placeholder: 'Loan amount', min: 0, class: 'form-control', id:'inputloan', required: true %>
+      <%= form.label :amount %>
+      <%= form.number_field :amount, placeholder: 'Loan amount', min: 0, class: 'form-control', id:'inputloan', required: true %>
     </div>
     <div class="form-group col">
       <%= form.label :terms %>
@@ -18,7 +18,7 @@
     </div>
     <div class="form-group col">
       <%= form.label :interest_only %>
-      <%= form.select(:interest_only, ['Yes', "No"], {}, { :class => 'form-control' }) %>
+      <%= form.select(:interest_only, [['Yes', true],['No', false]], {}, { :class => 'form-control' }) %>
     </div>
   </div>
   <%= button_tag(type: :submit, class: 'btn btn-md btn-info') do%>

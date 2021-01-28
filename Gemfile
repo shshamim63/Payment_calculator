@@ -33,6 +33,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 4.0.1'
   gem 'rubocop-rails', require: false
+  gem 'active_model_serializers', '~> 0.10.0'
 end
 
 group :development do

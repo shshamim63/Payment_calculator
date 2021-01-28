@@ -7,24 +7,26 @@ class LoansController <  ApplicationController
   def create
     @loan = Loan.create(loan_params)
     if @loan.save
-      redirect_to @loan
+      redirect_to loan_path(@loan)
+    else
+      render 'new'
     end
   end
 
   def show
     @loan = Loan.new
-    @payments = Payment.final_payment_list(@seted_loan.loan_amount.to_f,
-                                           @seted_loan.terms.to_f,
-                                           @seted_loan.interest_rate.to_f,
-                                           Date.parse(@seted_loan.day.to_s).beginning_of_month,
-                                           @seted_loan.interest_only
+    @payments = Payment.final_payment_list(@current_loan.amount,
+                                           @current_loan.terms,
+                                           @current_loan.interest_rate,
+                                           @current_loan.day,
+                                           @current_loan.interest_only
                                           )
   end
 
   private
 
   def loan_params
-    params.require(:loan).permit(:loan_amount, :interest_rate, :interest_only, :day, :terms)
+    params.require(:loan).permit(:amount, :interest_rate, :interest_only, :day, :terms)
   end
 
   def set_loan

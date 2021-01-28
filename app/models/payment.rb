@@ -11,10 +11,10 @@ class Payment < ApplicationRecord
   def self.final_payment_list (amount, terms, rate, date, interest_only)
     ans = []
     years = terms.to_f/12
-    effected_term = interest_only == 'Yes' ? terms - 3 : terms
+    effected_term = interest_only ? terms - 3 : terms
     pmt = Payment.total_pmt(amount, rate, years, effected_term)
     (0...terms).each do |term|
-      if interest_only == 'Yes' and term < 3
+      if interest_only and term < 3
         interest = self.interest_monthly(amount, rate, terms).round(2)
         payment = self.create_instance(amount, interest, interest,
                                       0.00, date.next_month, amount)
