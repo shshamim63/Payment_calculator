@@ -7,7 +7,8 @@ class LoansController < ApplicationController
   def create
     @loan = Loan.create(loan_params)
     if @loan.save
-      redirect_to loan_path(@loan)
+      PaymentGeneratorService.new(loan: @loan).create
+      redirect_to @loan
     else
       render 'new'
     end
@@ -15,13 +16,7 @@ class LoansController < ApplicationController
 
   def show
     @loan = Loan.new
-    @payments = Payment.final_payment_list(
-      @current_loan.amount,
-      @current_loan.terms,
-      @current_loan.interest_rate,
-      @current_loan.day,
-      @current_loan.interest_only
-    )
+    @payments = @current_loan.payments
   end
 
   private
