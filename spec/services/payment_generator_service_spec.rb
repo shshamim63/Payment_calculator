@@ -5,14 +5,14 @@ RSpec.describe PaymentGeneratorService do
     let(:loan) { create(:loan) }
     context 'creates payments under a loan' do
       it 'number of payments is equal to the addressed terms' do
-        PaymentGeneratorService.new(loan: loan).create
+        described_class.new(loan: loan).create
         expect(loan.payments.count).to eq(loan.terms)
       end
     end
 
     context 'When interest_only loan' do
       it 'should contains the first three instances with the same interest rate' do
-        payment_generator_service = PaymentGeneratorService.new(loan: loan)
+        payment_generator_service = described_class.new(loan: loan)
         payment_generator_service.create
         payments = loan.payments
         monthly_interest = payment_generator_service.interest_monthly(
@@ -28,7 +28,7 @@ RSpec.describe PaymentGeneratorService do
     context 'When without interest_only loan' do
       let(:without_interest_only_loan) { create(:loan, interest_only: false) }
       it 'should contains the first three instances with the same interest rate' do
-        payment_generator_service = PaymentGeneratorService.new(loan: without_interest_only_loan)
+        payment_generator_service = described_class.new(loan: without_interest_only_loan)
         payment_generator_service.create
         payments = without_interest_only_loan.payments
         monthly_interest = payment_generator_service.interest_monthly(
