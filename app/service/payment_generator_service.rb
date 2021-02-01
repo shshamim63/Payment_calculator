@@ -50,7 +50,8 @@ class PaymentGeneratorService
 
   private
 
-  attr_accessor :date, :terms, :amount, :rate, :interest_only, :loan
+  attr_reader :terms, :rate, :interest_only, :loan
+  attr_accessor :amount, :date
 
   def total_monthly_payment(start_balance, annual_interest_rate, _years, terms)
     monthly_interest = monthly_rate(annual_interest_rate, terms)
