@@ -9,37 +9,37 @@ class PaymentGeneratorService
   end
 
   def create
-    years = @terms / 12
-    effected_term = @interest_only ? @terms - 3 : @terms
-    payment_monthly = total_monthly_payment(@amount, @rate, years, effected_term)
-    (0...@terms).each do |term|
+    years = terms / 12
+    effected_term = interest_only ? terms - 3 : terms
+    payment_monthly = total_monthly_payment(amount, rate, years, effected_term)
+    (0...terms).each do |term|
       payment =
-        if @interest_only and term < 3
-          interest = interest_monthly(@amount, @rate, @terms).round(2)
-          @loan.payments.build(
-            start_balance: @amount,
+        if interest_only and term < 3
+          interest = interest_monthly(amount, rate, terms).round(2)
+          loan.payments.build(
+            start_balance: amount,
             interest: interest,
             total_pmt: interest,
             principal: 0.00,
-            day: @date.next_month,
-            end_balance: @amount
+            day: date.next_month,
+            end_balance: amount
           )
         else
-          interest = interest_monthly(@amount, @rate, effected_term).round(2)
+          interest = interest_monthly(amount, rate, effected_term).round(2)
           principal = (payment_monthly - interest).round(2)
-          end_balance = (@amount - principal).round(2) >= 0 ? (@amount - principal).round(2) : 0
-          payment = @loan.payments.build(
-            start_balance: @amount,
+          end_balance = (amount - principal).round(2) >= 0 ? (amount - principal).round(2) : 0
+          payment = loan.payments.build(
+            start_balance: amount,
             interest: interest,
             total_pmt: payment_monthly.round(2),
             principal: principal,
-            day: @date.next_month,
+            day: date.next_month,
             end_balance: end_balance
           )
-          @amount = end_balance
+          self.amount = end_balance
           payment
         end
-      @date = @date.next_month
+      self.date = date.next_month
       payment.save
     end
   end
@@ -49,6 +49,8 @@ class PaymentGeneratorService
   end
 
   private
+
+  attr_accessor :date, :terms, :amount, :rate, :interest_only, :loan
 
   def total_monthly_payment(start_balance, annual_interest_rate, _years, terms)
     monthly_interest = monthly_rate(annual_interest_rate, terms)
